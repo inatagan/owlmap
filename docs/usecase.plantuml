@@ -1,0 +1,55 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+skinparam rectangle {
+    BackgroundColor #f0f0f0
+    BorderColor #333333
+    BorderThickness 1
+}
+actor "App User" as User
+database "OwlMap Database" as DB
+rectangle OwlMap {
+    usecase "Log In" as UC_LogIn
+    usecase "View Map" as UC_ViewMap
+    usecase "Search Location" as UC_SearchLocation
+    usecase "Add Location" as UC_AddLocation
+    usecase "Edit Location" as UC_EditLocation
+    usecase "Delete Location" as UC_DeleteLocation
+    usecase "View Location Details" as UC_ViewLocationDetails
+    usecase "View User Profile" as UC_ViewUserProfile
+    usecase "Edit User Profile" as UC_EditUserProfile
+    usecase "Log Out" as UC_LogOut    
+    usecase "Start Session" as UC_StartSession
+    usecase "End Session" as UC_EndSession
+}
+User --> UC_LogIn
+User --> UC_ViewMap
+User --> UC_SearchLocation
+User --> UC_AddLocation
+User --> UC_EditLocation
+User --> UC_DeleteLocation
+User --> UC_ViewLocationDetails
+User --> UC_ViewUserProfile
+User --> UC_EditUserProfile
+UC_LogIn ..> UC_StartSession : includes
+UC_StartSession --> DB : Authenticate User
+UC_ViewMap --> DB : Retrieve Map Data
+UC_SearchLocation --> DB : Search Locations
+UC_AddLocation --> DB : Add New Location
+UC_AddLocation ..> UC_LogIn : includes
+UC_EditLocation --> DB : Update Location
+UC_EditLocation ..> UC_LogIn : includes
+UC_DeleteLocation --> DB : Remove Location
+UC_DeleteLocation ..> UC_LogIn : includes
+UC_ViewLocationDetails --> DB : Get Location Details
+UC_ViewUserProfile --> DB : Retrieve User Profile
+UC_ViewUserProfile ..> UC_LogIn : includes
+UC_EditUserProfile --> DB : Update User Profile
+UC_EditUserProfile ..> UC_LogIn : includes
+UC_LogIn <.. UC_LogOut : extends
+UC_LogOut ..> UC_EndSession : includes
+UC_EndSession --> DB : End User Session
+note right of User
+    The App User interacts with the OwlMap application to manage locations and user profiles.
+end note
+@enduml

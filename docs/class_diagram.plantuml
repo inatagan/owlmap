@@ -1,0 +1,41 @@
+@startuml
+skinparam class {
+    BackgroundColor #f0f0f0
+    BorderColor #333333
+    BorderThickness 1
+}
+entity "User" as User {
+    +userId: String
+    +username: String
+    +email: String
+    +password: String
+    +phone_number: String
+    +created_at: DateTime
+    +updated_at: DateTime
+}
+entity "Location" as Location {
+    +locationId: String
+    +name: String
+    +description: String
+    +latitude: Float
+    +longitude: Float
+    +created_at: DateTime
+    +updated_at: DateTime
+    +userId: String
+}
+entity "Media" as Media {
+    +mediaId: String
+    +locationId: String
+    +userId: String
+    +mediaType: String
+    +mediaUrl: String
+    +created_at: DateTime
+    +updated_at: DateTime
+}
+User ||--o{ Location : "has"
+User ||--o{ Media : "uploads"
+Location ||--o{ Media : "contains"
+note right of User
+    The User entity represents the application user with their details.
+end note
+@enduml
