@@ -4,7 +4,7 @@ skinparam class {
     BorderColor #333333
     BorderThickness 1
 }
-entity "User" as User {
+entity "Users" as Users {
     +userId: String
     +username: String
     +email: String
@@ -13,7 +13,7 @@ entity "User" as User {
     +created_at: DateTime
     +updated_at: DateTime
 }
-entity "Location" as Location {
+entity "Markers" as Markers {
     +locationId: String
     +name: String
     +description: String
@@ -23,7 +23,7 @@ entity "Location" as Location {
     +updated_at: DateTime
     +userId: String
 }
-entity "Media" as Media {
+entity "MediaFiles" as MediaFiles {
     +mediaId: String
     +locationId: String
     +userId: String
@@ -32,10 +32,10 @@ entity "Media" as Media {
     +created_at: DateTime
     +updated_at: DateTime
 }
-User ||--o{ Location : "has"
-User ||--o{ Media : "uploads"
-Location ||--o{ Media : "contains"
-note right of User
-    The User entity represents the application user with their details.
+Users ||--o{ Markers : "has"
+Users ||--o{ MediaFiles : "uploads"
+Markers ||--o{ MediaFiles : "contains"
+note right of Users
+    The Users entity represents the application user with their details.
 end note
 @enduml
