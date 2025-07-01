@@ -8,7 +8,6 @@ class UserController {
     try {
       final user = _auth.currentUser;
       if (user != null) {
-        // print('User is signed in: ${user.email}');
         return user;
       } else {
         throw Exception('No user is currently signed in.');
@@ -26,7 +25,6 @@ class UserController {
       loggedInUser.reload();
       loggedInUser = _auth.currentUser!;
     } catch (e) {
-      print('Error updating display name: $e');
       throw Exception('Failed to update display name');
     }
   }

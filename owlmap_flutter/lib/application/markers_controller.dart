@@ -8,8 +8,6 @@ class MarkersController extends ChangeNotifier {
   Set<Marker> markers = {};
   late GoogleMapController _mapsController;
 
-  // MarkersController(this._markersRepository);
-
   get mapsController => _mapsController;
 
   onMapCreated(GoogleMapController gmc) async {
@@ -35,8 +33,8 @@ class MarkersController extends ChangeNotifier {
     String userId,
     BuildContext context,
   ) async {
-    final saved_markers = await _markersRepository.loadAllMarkers(userId);
-    for (var marker in saved_markers) {
+    final savedMarkers = await _markersRepository.loadAllMarkers(userId);
+    for (var marker in savedMarkers) {
       markers.add(
         Marker(
           markerId: marker.markerId,

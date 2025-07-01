@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:owlmap/presentation/constants.dart';
-import 'package:owlmap/presentation/welcome_screen.dart';
 import 'package:owlmap/presentation/widgets/rounded_button.dart';
 import 'package:owlmap/presentation/maps_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 48.0),
-              // EMAIL TEXT FIELD
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
@@ -70,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 8.0),
-              // PASSWORD TEXT FIELD
               TextField(
                 obscureText: true,
                 textAlign: TextAlign.center,
@@ -89,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     _saving = true;
                   });
-                  final user = await _auth
+                  await _auth
                       .signInWithEmailAndPassword(
                         email: email,
                         password: password,
@@ -98,14 +95,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           _saving = false;
                         });
-                        // Navigate to MapsScreen after successful login
                         Navigator.pushNamed(context, MapsScreen.id);
                       })
                       .catchError((error) {
                         setState(() {
                           _saving = false;
                         });
-                        // Handle error here, e.g., show a dialog or snackbar
                         QuickAlert.show(
                           context: context,
                           type: QuickAlertType.error,

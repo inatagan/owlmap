@@ -4,6 +4,8 @@ import 'package:owlmap/presentation/widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:owlmap/presentation/maps_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -49,19 +51,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   );
                 },
-                child: Container(
+                child: SizedBox(
                   height: 200.0,
                   width: 200.0,
                   child: Image.asset('assets/images/owl-100.png'),
                 ),
               ),
               SizedBox(height: 48.0),
-              // EMAIL TEXT FIELD
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  //Do something with the user input.
                   email = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
@@ -69,12 +69,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
               SizedBox(height: 8.0),
-              // PASSWORD TEXT FIELD
               TextField(
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  //Do something with the user input.
                   password = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
@@ -89,9 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   setState(() {
                     _saving = true;
                   });
-                  print(email);
-                  print(password);
-                  final newUser = await _auth
+                  await _auth
                       .createUserWithEmailAndPassword(
                         email: email,
                         password: password,
@@ -100,14 +96,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         setState(() {
                           _saving = false;
                         });
-                        // User registration successful
-                        print('User registered: ${userCredential.user?.email}');
-                        // Navigate to the Maps screen or any other screen
                         Navigator.pushNamed(context, MapsScreen.id);
                       })
                       .catchError((error) {
-                        // Handle registration error
-                        print('Registration error: $error');
+                        setState(() {
+                          _saving = false;
+                        });
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.error,
+                          title: 'Registration Failed',
+                          text: error.toString(),
+                          confirmBtnText: 'OK',
+                        );
                       });
                 },
               ),
