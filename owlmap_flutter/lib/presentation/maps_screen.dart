@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:owlmap/application/geolocator_controller.dart';
 import 'package:owlmap/application/user_controller.dart';
+import 'package:owlmap/presentation/user_profile.dart';
 import 'package:owlmap/presentation/welcome_screen.dart';
 import 'package:owlmap/application/markers_controller.dart';
 import 'package:quickalert/quickalert.dart';
@@ -45,6 +46,12 @@ class _MapsScreenState extends State<MapsScreen> {
         centerTitle: true,
         title: const Text('OwlMap'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () async {
+              Navigator.pushNamed(context, UserProfileScreen.id);
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {

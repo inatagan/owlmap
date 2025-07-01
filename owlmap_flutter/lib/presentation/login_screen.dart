@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:owlmap/presentation/constants.dart';
+import 'package:owlmap/presentation/welcome_screen.dart';
 import 'package:owlmap/presentation/widgets/rounded_button.dart';
 import 'package:owlmap/presentation/maps_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quickalert/quickalert.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -100,8 +102,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushNamed(context, MapsScreen.id);
                       })
                       .catchError((error) {
+                        setState(() {
+                          _saving = false;
+                        });
                         // Handle error here, e.g., show a dialog or snackbar
-                        print('Login failed: $error');
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.error,
+                          title: 'Login Failed',
+                          text: error.toString(),
+                          confirmBtnText: 'OK',
+                        );
+                        // Navigator.pushNamed(context, WelcomeScreen.id);
                       });
                 },
               ),

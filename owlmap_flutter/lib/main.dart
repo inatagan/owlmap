@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:owlmap/presentation/user_profile.dart';
 import 'presentation/welcome_screen.dart';
 import 'presentation/login_screen.dart';
 import 'presentation/registration_screen.dart';
@@ -35,6 +36,7 @@ class OwlMap extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         MapsScreen.id: (context) => MapsScreen(),
+        UserProfileScreen.id: (context) => UserProfileScreen(),
       },
     );
   }

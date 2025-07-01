@@ -18,4 +18,16 @@ class UserController {
       rethrow;
     }
   }
+
+  void updateDisplayName(String name) {
+    try {
+      loggedInUser = _auth.currentUser!;
+      loggedInUser.updateProfile(displayName: name);
+      loggedInUser.reload();
+      loggedInUser = _auth.currentUser!;
+    } catch (e) {
+      print('Error updating display name: $e');
+      throw Exception('Failed to update display name');
+    }
+  }
 }

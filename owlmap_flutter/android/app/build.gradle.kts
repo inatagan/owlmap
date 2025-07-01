@@ -48,6 +48,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        // This allows us to access the value in eg. AndroidManifest.xml
+        resValue("string", "MAPS_API_KEY", System.getenv("MAPS_API_KEY") ?: "")
     }
 
     buildTypes {
@@ -63,4 +65,3 @@ android {
 flutter {
     source = "../.."
 }
-
