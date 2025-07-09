@@ -18,14 +18,15 @@ class UserController {
     }
   }
 
-  void updateDisplayName(String name) {
+  Future<void> updateDisplayName(String name) async {
     try {
-      loggedInUser = _auth.currentUser!;
-      loggedInUser.updateProfile(displayName: name);
-      loggedInUser.reload();
-      loggedInUser = _auth.currentUser!;
+      await _auth.currentUser!.updateProfile(displayName: name);
     } catch (e) {
       throw Exception('Failed to update display name');
     }
+  }
+
+  Future<void> updateImageProfile(String imageUrl) async {
+    await _auth.currentUser!.updateProfile(photoURL: imageUrl);
   }
 }

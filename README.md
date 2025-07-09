@@ -29,3 +29,11 @@ The you can run the the app with:
 To build using the environment variables ue:
 
 `flutter build apk --dart-define=<name_of_the_file>`
+
+### TO-DO
+
+* replace google maps API with Open Street Maps:
+    - https://medium.com/@maurobeltrame12/no-google-maps-again-2171aed2fead
+
+* self host backend API
+

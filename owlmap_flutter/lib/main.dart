@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:owlmap/presentation/user_profile.dart';
 import 'presentation/welcome_screen.dart';
 import 'presentation/login_screen.dart';
@@ -11,13 +11,13 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // var permission = await Geolocator.checkPermission();
-  // if (permission == LocationPermission.denied) {
-  //   permission = await Geolocator.requestPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     return Future.error('Location permissions are denied');
-  //   }
-  // }
+  var permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
 
   runApp(const OwlMap());
 }

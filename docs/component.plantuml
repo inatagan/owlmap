@@ -1,0 +1,19 @@
+@startuml
+skinparam class {
+    BackgroundColor #f0f0f0
+    BorderColor #333333
+    BorderThickness 1
+}
+
+package "Components" {
+    [User Service] as UserService
+    [Marker Service] as MarkerService
+    [Media Service] as MediaService
+}
+UserService --> Users : manages
+MarkerService --> Markers : manages
+MediaService --> MediaFiles : manages
+UserService --> MarkerService : interacts
+MarkerService --> MediaService : interacts
+
+@enduml
